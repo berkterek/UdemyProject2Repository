@@ -9,7 +9,8 @@ namespace UdemyProject2.Managers
 {
     public class CheckpointManager : MonoBehaviour
     {
-        CheckpointController[] _checkpointControllers;
+        [SerializeField] CheckpointController[] _checkpointControllers;
+        
         Health _health;
 
         private void Awake()

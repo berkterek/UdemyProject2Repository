@@ -11,8 +11,7 @@ namespace UdemyProject2.Uis
     {
         public void YesButtonClick()
         {
-            GameManager.Instance.LoadScene();
-            this.gameObject.SetActive(false);
+            GameManager.Instance.LoadLevel1Scene();
         }
 
         public void NoButtonClick()

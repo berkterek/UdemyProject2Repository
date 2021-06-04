@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 using UnityEngine.SceneManagement;
 
 namespace UdemyProject2.Managers
@@ -49,9 +47,9 @@ namespace UdemyProject2.Managers
             yield return SceneManager.UnloadSceneAsync(buildIndex);
             SceneManager.LoadSceneAsync(buildIndex + levelIndex, LoadSceneMode.Additive).completed +=
                 (AsyncOperation obj) =>
-            {
-                SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(buildIndex + levelIndex));
-            };
+                {
+                    SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(buildIndex + levelIndex));
+                };
 
             OnSceneChanged?.Invoke(false);
         }
@@ -67,6 +65,24 @@ namespace UdemyProject2.Managers
             StartCoroutine(LoadMenuAndUiAsync(delayLoadingTime));
         }
 
+        public void LoadLevel1()
+        {
+            StartCoroutine(LoadLevel1Async());
+        }
+
+        private IEnumerator LoadLevel1Async()
+        {
+            yield return new WaitForSeconds(delayLevelTime);
+
+            int buildIndex = SceneManager.GetActiveScene().buildIndex;
+
+            yield return SceneManager.UnloadSceneAsync(buildIndex);
+            SceneManager.LoadSceneAsync(buildIndex, LoadSceneMode.Additive).completed +=
+                (AsyncOperation obj) => { SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(buildIndex)); };
+
+            OnSceneChanged?.Invoke(false);
+        }
+
         private IEnumerator LoadMenuAndUiAsync(float delayLoadingTime)
         {
             yield return new WaitForSeconds(delayLoadingTime);
@@ -76,6 +92,24 @@ namespace UdemyProject2.Managers
             OnSceneChanged?.Invoke(true);
         }
 
+        public void LoadLevel1Scene()
+        {
+            StartCoroutine(LoadLevel1SceneAsync());
+        }
+
+        private IEnumerator LoadLevel1SceneAsync()
+        {
+            yield return new WaitForSeconds(delayLevelTime);
+
+            int buildIndex = SceneManager.GetActiveScene().buildIndex;
+
+            yield return SceneManager.UnloadSceneAsync(buildIndex);
+            SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive).completed +=
+                (AsyncOperation obj) => { SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(2)); };
+
+            OnSceneChanged?.Invoke(false);
+        }
+
         public void IncreaseScore(int score = 0)
         {
             this.score += score;
@@ -83,4 +117,3 @@ namespace UdemyProject2.Managers
         }
     }
 }
-
