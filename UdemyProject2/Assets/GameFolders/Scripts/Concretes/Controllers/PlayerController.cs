@@ -75,7 +75,7 @@ namespace UdemyProject2.Controllers
             }
 
             _characterAnimation.MoveAnimation(_horizontal);
-            _characterAnimation.JumpAnimation(!_onGround.IsOnGround && _jump.IsJump);
+            _characterAnimation.JumpAnimation(!_onGround.IsOnGround && _jump.IsJump && !_climbing.IsClimbing);
             _characterAnimation.ClimbingAnimation(_climbing.IsClimbing);
         }
 
